@@ -124,5 +124,30 @@ def run_offline_predictor():
         print(explanation)
     print("="*50)
 
+# (Keep all the INDUSTRY_DATA and calculate_profitability function exactly the same as before)
+import streamlit as st
+
+st.title("📊 Startup Profitability Predictor")
+st.write("Enter your business idea to calculate its feasibility score and global market potential.")
+
+user_idea = st.text_input("Enter your business product/idea (e.g., IT consulting, Fish farming):")
+
+if st.button("Analyze Startup"):
+    if user_idea:
+        category, score, explanation = calculate_profitability(user_idea)
+        st.subheader("📈 Feasibility Report")
+        
+        if score == 0:
+            st.warning(explanation)
+        else:
+            st.metric(label="Profitability Score", value=f"{score}/100")
+            st.markdown(f"**Category Matched:** {category.capitalize()}")
+            st.markdown(explanation)
+    else:
+        st.error("Please enter a business idea first.")
+
+
 if __name__ == "__main__":
     run_offline_predictor()
+    
+    
